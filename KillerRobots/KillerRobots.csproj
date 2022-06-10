@@ -6,8 +6,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <ExternalConsole>true</ExternalConsole>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Colorful.Console" Version="1.2.15" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Services\" />
+    <None Remove="Colorful.Console" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
 </Project>
