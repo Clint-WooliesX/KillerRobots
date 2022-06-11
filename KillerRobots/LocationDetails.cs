@@ -15,7 +15,7 @@ namespace KillerRobots
         public string postcode { get; set; } = "";
     }
 
-    public class Root
+    public class LocationData
     {
         public string lat { get; set; } = "";
         public string lon { get; set; } = "";

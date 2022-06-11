@@ -2,11 +2,11 @@
 
 namespace KillerRobots.Services
 {
-	public class LocationAPI
+	public class WebRequests
 	{
 		private readonly HttpClient _httpClient;
 
-		public LocationAPI(HttpClient client)
+		public WebRequests(HttpClient client)
 		{
 			_httpClient = client;
 			_httpClient.DefaultRequestHeaders.Add("User-Agent", "C# app");
@@ -24,6 +24,13 @@ namespace KillerRobots.Services
 				(fullURL);
             return await webrequest.Content.ReadAsStringAsync();
         }
+
+		public async Task<string> IPgeolocation()
+        {
+			HttpResponseMessage webrequest = await _httpClient.GetAsync
+				("http://ip-api.com/json/");
+			return await webrequest.Content.ReadAsStringAsync();
+		}
 	}
 }
 

@@ -1,32 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using KillerRobots.Services;
 using Newtonsoft.Json;
-using System.Drawing;
-using Console = Colorful.Console;
 
 namespace KillerRobots.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class RobotSpottedController : ControllerBase
+public class Test_RejectionController : ControllerBase
 {
-    private readonly ILogger<RobotSpottedController> _logger;
+    private readonly ILogger<Test_RejectionController> _logger;
     private readonly WebRequests _service;
 
-    public RobotSpottedController(WebRequests service, ILogger<RobotSpottedController> logger)
+    public Test_RejectionController(WebRequests service, ILogger<Test_RejectionController> logger)
     {
         _service = service;
         _logger = logger;
     }
 
-    [HttpPost(Name = "RobotSpotted")]
+    [HttpPost(Name = "Test_Rejection")]
     public async Task<object> Get(string LocationQuery, int NumberOfResults = 1)
     {
         string IPcheck = await _service.IPgeolocation();
         IPLocationCheck DeserializedIPCheck = new IPLocationCheck();
         DeserializedIPCheck = JsonConvert.DeserializeObject<IPLocationCheck>(IPcheck);
 
-        if (DeserializedIPCheck.countryCode != "AU")
+        if (DeserializedIPCheck.countryCode == "AU")
         {
             DeserializedIPCheck.rejectionMessage();
 
@@ -42,14 +40,16 @@ public class RobotSpottedController : ControllerBase
                 );
         }
 
-        string APIresponse = await _service.GetLocation(LocationQuery, NumberOfResults, WebRequests.POI.water);
-
-        LocationData[] myDeserializedClass = JsonConvert.DeserializeObject<LocationData[]>(APIresponse);
-        Console.Write("Results returned Length = ",  Color.DarkGreen);
-        Console.WriteLine(myDeserializedClass.Length, Color.OrangeRed);
-        if(myDeserializedClass.Length > 0)
-            foreach (var value in myDeserializedClass) Console.WriteLine(value, Color.Yellow);
-        return APIresponse;
+        return Problem
+            (
+            type: "/docs/errors/forbidden",
+            title: "Un-Authorsied Geo-Location",
+            detail: $"Request orignated from outside of Australia. " +
+            $"IP: {DeserializedIPCheck.query} - {DeserializedIPCheck.city}, " +
+            $"{DeserializedIPCheck.country}",
+            statusCode: StatusCodes.Status403Forbidden,
+            instance: HttpContext.Request.Path
+            );
     }
 }
 
