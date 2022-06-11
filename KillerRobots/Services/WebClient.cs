@@ -12,7 +12,7 @@ namespace KillerRobots.Services
 			_httpClient.DefaultRequestHeaders.Add("User-Agent", "C# app");
 		}
 
-		public enum POI { water, hosplital, police }
+		public enum POI { water, hospital, police }
 
 		public async Task<string> GetLocation(string UserQuery, int NumberOfResults, POI searchType)
         {
