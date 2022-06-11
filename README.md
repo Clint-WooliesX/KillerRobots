@@ -15,6 +15,6 @@ All end points are used in the same way:<br />
 Error **"403 Forbiden"** Any request orginating from outside of Australia are blocked to prevent DDoS attacks from the Killer Robot HQ
 
 ## Test_Rejection
-the Last endpoint is for testing and development purposes only it rejects all requests returning the error 403 and recording the IP city aznd country the request orignated from.
+the Last endpoint is for testing and development purposes only it rejects all requests returning the error 403 and recording the IP, city and country the request orignated from.
 
 
