@@ -4,7 +4,7 @@
 This API can be used to retrieve location data of 3 services to asssit with the invasion of the Killer robots. the 3 endpoints are:
 * /RobotSpotted - Will return the location of the nearest water source to drown the robot.
 * /RobotInjury - Will return the location of the nearest Hospital in the event you are injured by a robot.
-* /RobotBounty - Will return the lcation of the nearest police station to receive a $10 bount per destroyed robot you turn in
+* /RobotBounty - Will return the lcation of the nearest police station to receive a $10 bounty per destroyed robot you turn in
 Location data is provided by the Nominatim API https://nominatim.org
 
 ## Usage
